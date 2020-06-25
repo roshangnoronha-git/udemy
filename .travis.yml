@@ -16,15 +16,3 @@ after_success:
   -  docker build --t noronhaha/udemy_server ./server
   -  docker build --t noronhaha/udemy_worker ./worker
   
-deploy:
-  provider: elasticbeanstalk
-  region: "us-east-1"
-  app: "docker"
-  env: "Docker-env"
-  bucket: "elasticbeanstalk-us-east-1-359129259698"
-  bucket_path: "docker"
-  on: 
-    branch: master
-  access_key: $aws_access_key
-  secret_access_key:
-    secure: "$aws_secret_key" 
