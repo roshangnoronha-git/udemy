@@ -1,0 +1,24 @@
+language: generic 
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build -–t noronhaha/udemy .
+
+script:
+  - docker run noronhaha/udemy -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker"
+  env: "Docker-env"
+  bucket: "elasticbeanstalk-us-east-1-359129259698"
+  bucket_path: "docker"
+  on: 
+    branch: master
+  access_key: $aws_access_key
+  secret_access_key:
+    secure: "$aws_secret_key" 
