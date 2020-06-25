@@ -5,7 +5,7 @@ services:
   - docker
 
 before_install:
-  - docker build -–t noronhaha/udemy .
+  - docker build -–t noronhaha/udemy -f ./client/Dockerfile
 
 script:
   - docker run noronhaha/udemy -- --coverage
