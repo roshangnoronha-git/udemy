@@ -5,11 +5,17 @@ services:
   - docker
 
 before_install:
-  - docker build -–t noronhaha/udemy -f ./client/Dockerfile
+  - docker build -–t noronhaha/udemy -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run noronhaha/udemy -- --coverage
+  - docker run noronhaha/udemy npm test -- --coverage
 
+after_success:
+  -  docker build --t noronhaha/udemy_client ./client
+  -  docker build --t noronhaha/udemy_nginx ./nginx
+  -  docker build --t noronhaha/udemy_server ./server
+  -  docker build --t noronhaha/udemy_worker ./worker
+  
 deploy:
   provider: elasticbeanstalk
   region: "us-east-1"
